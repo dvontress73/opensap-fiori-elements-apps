@@ -25,7 +25,9 @@ define root view entity ZC_FE_TRAVEL_000003
   AgencyID,
   _Agency.Name as AgencyName,
   
+  @EndUserText.label: 'Customer'
   @ObjectModel.text.element: ['LastName']
+  @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_CUSTOMER', element: 'CustomerID' } }]
   CustomerID,
   _Customer.LastName as LastName,
   
@@ -50,7 +52,12 @@ define root view entity ZC_FE_TRAVEL_000003
   Description,
   
   @EndUserText.label: 'Status'
-  OverallStatus,
+  @ObjectModel.text.element: ['TravelStatusText']
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZI_FE_STAT_000003', element: 'TravelStatusId' } }]
+  OverallStatus,  
+  _TravelStatus.TravelStatusText as TravelStatusText,
+  
+  OverallStatusCriticality,
   
   CreatedBy,
   

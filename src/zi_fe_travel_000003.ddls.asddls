@@ -2,51 +2,59 @@
 @Metadata.allowExtensions: true
 @EndUserText.label: 'CDS View forTravel'
 define root view entity ZI_FE_TRAVEL_000003
-  as select from ZFE_ATRAV_000003
+  as select from zfe_atrav_000003
   association [0..1] to /DMO/I_Agency as _Agency on $projection.AgencyID = _Agency.AgencyID
   association [0..1] to I_Currency as _Currency on $projection.CurrencyCode = _Currency.Currency
   association [0..1] to /DMO/I_Customer as _Customer on $projection.CustomerID = _Customer.CustomerID
-  association [0..1] to zi_fe_stat_000003 as _TravelStatus on $projection.OverallStatus = _TravelStatus.TravelStatusId
-  composition [0..*] of ZI_FE_Booking_000003 as _Booking
+  association [0..1] to ZI_FE_STAT_000003 as _TravelStatus on $projection.OverallStatus = _TravelStatus.TravelStatusId
+  composition [0..*] of ZI_FE_BOOKING_000003 as _Booking
 {
-  key TRAVEL_UUID as TravelUUID,
+  key travel_uuid as TravelUUID,
   
-  TRAVEL_ID as TravelID,
+  travel_id as TravelID,
   
-  AGENCY_ID as AgencyID,
+  agency_id as AgencyID,
   
-  CUSTOMER_ID as CustomerID,
+  customer_id as CustomerID,
   
-  BEGIN_DATE as BeginDate,
+  begin_date as BeginDate,
   
-  END_DATE as EndDate,
-  
-  @Semantics.amount.currencyCode: 'CurrencyCode'
-  BOOKING_FEE as BookingFee,
+  end_date as EndDate,
   
   @Semantics.amount.currencyCode: 'CurrencyCode'
-  TOTAL_PRICE as TotalPrice,
+  booking_fee as BookingFee,
   
-  CURRENCY_CODE as CurrencyCode,
+  @Semantics.amount.currencyCode: 'CurrencyCode'
+  total_price as TotalPrice,
   
-  DESCRIPTION as Description,
+  currency_code as CurrencyCode,
   
-  OVERALL_STATUS as OverallStatus,
+  description as Description,
+  
+  overall_status as OverallStatus,
+  
+  case overall_status
+    when 'O'  then 2    --'open'        | 2: yellow color
+    when 'A'  then 3    -- 'accepted'   | 3: green colour
+    when 'X'  then 1    -- 'rejected'   | 1: red colour
+              else 0    -- 'nothing'    | 0: unknown  
+  end   as OverallStatusCriticality,
+  
   
   @Semantics.user.createdBy: true
-  CREATED_BY as CreatedBy,
+  created_by as CreatedBy,
   
   @Semantics.systemDateTime.createdAt: true
-  CREATED_AT as CreatedAt,
+  created_at as CreatedAt,
   
   @Semantics.user.lastChangedBy: true
-  LAST_CHANGED_BY as LastChangedBy,
+  last_changed_by as LastChangedBy,
   
   @Semantics.systemDateTime.lastChangedAt: true
-  LAST_CHANGED_AT as LastChangedAt,
+  last_changed_at as LastChangedAt,
   
   @Semantics.systemDateTime.localInstanceLastChangedAt: true
-  LOCAL_LAST_CHANGED_AT as LocalLastChangedAt,
+  local_last_changed_at as LocalLastChangedAt,
   
   _Booking,
   

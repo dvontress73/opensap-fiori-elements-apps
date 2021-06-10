@@ -19,6 +19,7 @@
 annotate view ZC_FE_TRAVEL_000003 with
 {
   @UI.lineItem: [{ position: 10 }]
+  @UI.textArrangement: #TEXT_ONLY
   TravelID;
 
   @UI.lineItem: [{ position: 20 }]
@@ -41,8 +42,9 @@ annotate view ZC_FE_TRAVEL_000003 with
   @UI.lineItem: [{ position: 70 }]
   TotalPrice;
 
-  @UI.lineItem: [{ position: 80 }]
+  @UI.lineItem: [{ position: 80, criticality: 'OverallStatusCriticality' }]
   @UI.selectionField: [{ position: 30 }]
+  @UI.textArrangement: #TEXT_ONLY
   OverallStatus;
 
   @UI.lineItem: [{ position: 90 }]
