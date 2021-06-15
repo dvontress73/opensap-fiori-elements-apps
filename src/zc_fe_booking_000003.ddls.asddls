@@ -3,7 +3,7 @@
 @EndUserText.label: 'Projection View forBooking'
 @Search.searchable: true
 define view entity ZC_FE_BOOKING_000003
-  as projection on ZI_FE_Booking_000003
+  as projection on ZI_FE_BOOKING_000003
 {
   key BookingUUID,
   
@@ -21,7 +21,10 @@ define view entity ZC_FE_BOOKING_000003
       element: 'CustomerID'
     }
   } ]
+  @EndUserText.label: 'Customer'
+  @ObjectModel.text.element: ['LastName']
   CustomerID,
+  _Customer.LastName as LastName,
   
   @Consumption.valueHelpDefinition: [ {
     entity: {
@@ -29,7 +32,10 @@ define view entity ZC_FE_BOOKING_000003
       element: 'AirlineID'
     }
   } ]
+  @EndUserText.label: 'Airline'
+  @ObjectModel.text.element: ['CarrierName']
   CarrierID,
+  _Carrier.Name as CarrierName,
   
   @Consumption.valueHelpDefinition: [ {
     entity: {
@@ -71,7 +77,7 @@ define view entity ZC_FE_BOOKING_000003
   
   LocalLastChangedAt,
   
-  _Travel : redirected to parent ZC_FE_Travel_000003,
+  _Travel : redirected to parent ZC_FE_TRAVEL_000003,
   
   _Connection,
   
